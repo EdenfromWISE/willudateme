@@ -59,6 +59,319 @@ document.addEventListener('DOMContentLoaded', function() {
     const completionNextBtn = document.getElementById('completion-next-btn');
     const completionHearts = document.getElementById('completion-hearts');
     
+    // Translations / i18n
+    const translations = {
+        en: {
+            h1: 'Hello <span class="special-text gorgeous">gorgeous</span>...',
+            question: 'Will you go on a date with me?',
+            yes: 'YES! ♥',
+            no: 'NO! ☹',
+            success_h1: 'Yayyy!!! 🌸',
+            success_msg: 'So excited to see you!!!',
+            choose_location: "Let's choose a place ♥",
+            location_h1: 'Pick a <span class="special-text">place</span>...',
+            location_question: 'Where would you like to go?',
+            date_label: 'Date',
+            time_label: 'Time',
+            datetime_h1: 'Pick a <span class="special-text">when</span>...',
+            datetime_question: 'What time would work for you?',
+            food_h1: 'What would you like to <span class="special-text">eat</span>?',
+            food_question: 'Choose whatever you desire 😋',
+            drinks_h1: 'Pick a <span class="special-text">drink</span>...',
+            drinks_question: 'What would you like to drink?',
+            completion_h1: 'All Set! <span class="special-text">💕</span>',
+            completion_big_message: "Can't wait to see you!",
+            date_placeholder: 'Select a date',
+            time_placeholder: 'Select time',
+            pick_food: "Let's Pick Some Food ♥",
+            finish_btn: 'Finish! ♥',
+            select_food_status: 'Select your food preferences',
+            select_drink_status: 'Select your drink preferences',
+            continue: 'Continue ♥',
+            confirm: 'Confirm ♥',
+            selected_location_msg: 'Nice choice! 💕',
+            selected_datetime_msg: 'Perfect time! 💕',
+            selected_count: '{n} selected',
+            food_yummy_message: "Yummy! I'm already hungry! 🤤",
+            food_final_message: "Let's choose some drinks too! 🥤",
+            drinks_button_text: 'Choose Some Drinks ♥',
+            drink_sounds_message: 'Sounds refreshing! 🥰',
+            custom_something_else: 'Something else',
+            success_promise_msg: "I'll make it special, I promise!",
+            completion_msg_1: "Our date will be perfectly set.",
+            completion_msg_2: "I'll make it special to the best of my ability.",
+            no_btn_responses: [
+                "Really?",
+                "Are you sure?",
+                "Think again!",
+                "Last chance...",
+                "Pretty, please?",
+                "I guess you are getting the wrong button",
+                "You're breaking my heart!",
+                "Come on...",
+                "Don't be shy!",
+                "That's not nice!",
+                "You mean yes?",
+                "Try again?",
+                "I'm still waiting...",
+                "Please reconsider!",
+                "You missed the yes button!",
+                "Maybe you misclicked?",
+                "One more chance?",
+                "How about now?",
+                "Changed your mind yet?",
+                "Cutie, I know you would say yes!",
+                "Say yes already!"
+            ]
+        },
+        vi: {
+            h1: 'Xin chào <span class="special-text gorgeous">xinh đẹp</span>...',
+            question: 'Bạn có đi hẹn hò với mình không?',
+            yes: 'CÓ! ♥',
+            no: 'KHÔNG! ☹',
+            success_h1: 'Tuyệt!!! 🌸',
+            success_msg: 'Mình háo hức được gặp bạn!!!',
+            choose_location: 'Chọn địa điểm ♥',
+            location_h1: 'Chọn một <span class="special-text">địa điểm</span>...',
+            location_question: 'Bạn muốn đi đâu?',
+            date_label: 'Ngày',
+            time_label: 'Giờ',
+            datetime_h1: 'Chọn <span class="special-text">thời gian</span>...',
+            datetime_question: 'Thời gian nào phù hợp với bạn?',
+            food_h1: 'Bạn muốn <span class="special-text">ăn gì</span>?',
+            food_question: 'Chọn món bạn thích 😋',
+            drinks_h1: 'Chọn <span class="special-text">đồ uống</span>...',
+            drinks_question: 'Bạn muốn uống gì?',
+            completion_h1: 'Hoàn tất! <span class="special-text">💕</span>',
+            completion_big_message: 'Mình không thể chờ để gặp bạn!',
+            date_placeholder: 'Chọn ngày',
+            time_placeholder: 'Chọn giờ',
+            pick_food: 'Chọn món thôi ♥',
+            finish_btn: 'Hoàn tất! ♥',
+            select_food_status: 'Chọn món bạn thích',
+            select_drink_status: 'Chọn đồ uống bạn thích',
+            continue: 'Tiếp tục ♥',
+            confirm: 'Xác nhận ♥'
+            ,
+            selected_location_msg: 'Lựa chọn tuyệt vời! 💕',
+            selected_datetime_msg: 'Thời gian hoàn hảo! 💕'
+            ,
+            selected_count: '{n} đã chọn'
+            ,
+            food_yummy_message: "Thơm quá! Mình đói rồi! 🤤",
+            food_final_message: 'Chúng ta chọn đồ uống nhé! 🥤',
+            drinks_button_text: 'Chọn đồ uống ♥',
+            drink_sounds_message: 'Nghe hấp dẫn quá! 🥰',
+            custom_something_else: 'Khác',
+            success_promise_msg: "Mình sẽ làm cho nó thật đặc biệt, hứa luôn!",
+            completion_msg_1: "Cuộc hẹn của chúng mình sẽ hoàn hảo.",
+            completion_msg_2: "Mình sẽ cố gắng hết sức để làm nó thật đặc biệt.",
+            no_btn_responses: [
+                "Thật sao?",
+                "Bạn chắc chưa?",
+                "Suy nghĩ lại đi!",
+                "Cơ hội cuối cùng...",
+                "Làm ơn mà~",
+                "Mình nghĩ bạn bấm nhầm nút rồi",
+                "Bạn làm tan nát trái tim mình!",
+                "Thôi mà...",
+                "Đừng ngại ngùng!",
+                "Thế không tốt đâu!",
+                "Ý bạn là có chứ?",
+                "Thử lại đi?",
+                "Mình vẫn đợi...",
+                "Xem lại đi!",
+                "Bạn bấm nhầm nút CÓ rồi!",
+                "Chắc bấm nhầm?",
+                "Cho thêm một cơ hội?",
+                "Bây giờ thì sao?",
+                "Đổi ý chưa?",
+                "Mình biết là bạn sẽ đồng ý mà!",
+                "Nói CÓ đi!"
+            ]
+        }
+    };
+
+    function applyLanguage(lang) {
+        if (!translations[lang]) return;
+        // set html lang attribute
+        document.documentElement.lang = lang;
+        localStorage.setItem('lang', lang);
+
+        // Main card
+        const mainH1 = document.querySelector('#main-card .card-content h1');
+        if (mainH1) mainH1.innerHTML = translations[lang].h1;
+        const mainQuestion = document.querySelector('#main-card .question');
+        if (mainQuestion) mainQuestion.textContent = translations[lang].question;
+        if (yesBtn) yesBtn.innerHTML = translations[lang].yes;
+        if (noBtn) noBtn.innerHTML = translations[lang].no;
+
+        // Success card
+        const successH1 = document.querySelector('#success-card h1');
+        if (successH1) successH1.innerHTML = translations[lang].success_h1;
+        const successMsg = document.querySelector('#success-card .card-content p');
+        if (successMsg) successMsg.textContent = translations[lang].success_msg;
+        const chooseBtn = document.getElementById('choose-location-btn');
+        if (chooseBtn) chooseBtn.innerHTML = translations[lang].choose_location;
+
+        // Location card
+        const locH1 = document.querySelector('#location-card h1');
+        if (locH1) locH1.innerHTML = translations[lang].location_h1;
+        const locQ = document.querySelector('#location-card .question');
+        if (locQ) locQ.textContent = translations[lang].location_question;
+
+        // Datetime
+        const dtH1 = document.querySelector('#datetime-card h1');
+        if (dtH1) dtH1.innerHTML = translations[lang].datetime_h1;
+        const dtQ = document.querySelector('#datetime-card .question');
+        if (dtQ) dtQ.textContent = translations[lang].datetime_question;
+        document.querySelectorAll('.date-input label').forEach(l => l.textContent = translations[lang].date_label);
+        document.querySelectorAll('.time-input label').forEach(l => l.textContent = translations[lang].time_label);
+    // Set placeholders for flatpickr inputs (if present)
+    document.querySelectorAll('.date-picker').forEach(i => { if (i) i.placeholder = translations[lang].date_placeholder || i.placeholder; });
+    document.querySelectorAll('.time-picker').forEach(i => { if (i) i.placeholder = translations[lang].time_placeholder || i.placeholder; });
+
+        // Food & drinks
+        const foodH1 = document.querySelector('#food-card h1');
+        if (foodH1) foodH1.innerHTML = translations[lang].food_h1;
+        const foodQ = document.querySelector('#food-card .question');
+        if (foodQ) foodQ.textContent = translations[lang].food_question;
+
+        const drinksH1 = document.querySelector('#drinks-card h1');
+        if (drinksH1) drinksH1.innerHTML = translations[lang].drinks_h1;
+        const drinksQ = document.querySelector('#drinks-card .question');
+        if (drinksQ) drinksQ.textContent = translations[lang].drinks_question;
+
+        // Completion
+        const compH1 = document.querySelector('#completion-card h1');
+        if (compH1) compH1.innerHTML = translations[lang].completion_h1;
+        const compBig = document.querySelector('#completion-card .big-message');
+        if (compBig) compBig.textContent = translations[lang].completion_big_message;
+
+        // Update option labels (locations)
+        const locMap = {
+            'cafe': { en: 'Café', vi: 'Quán cà phê' },
+            'restaurant': { en: 'Restaurant', vi: 'Nhà hàng' },
+            'cinema': { en: 'Cinema', vi: 'Rạp chiếu phim' },
+            'park': { en: 'Park', vi: 'Công viên' },
+            'mall': { en: 'Mall', vi: 'Trung tâm thương mại' },
+            'around-city': { en: 'Around the City', vi: 'Dạo quanh thành phố' },
+            'somewhere-else': { en: 'Somewhere Else', vi: 'Nơi khác' }
+        };
+        document.querySelectorAll('.location-btn').forEach(btn => {
+            const key = btn.dataset.location;
+            const span = btn.querySelector('span:nth-child(2)');
+            if (span && locMap[key]) span.textContent = locMap[key][lang];
+        });
+
+        // Food items (only adjust some English labels)
+        const foodMap = {
+            'cafe': { en: 'Café', vi: 'Quán cà phê' }
+        };
+        // Drinks
+        const drinkMap = {
+            'coffee': { en: 'Coffee', vi: 'Cà phê' },
+            'tea': { en: 'Tea', vi: 'Trà' },
+            'boba': { en: 'Boba Tea', vi: 'Trà sữa' },
+            'matcha': { en: 'Matcha Latte', vi: 'Matcha Latte' },
+            'smoothie': { en: 'Smoothie', vi: 'Sinh tố' }
+        };
+        document.querySelectorAll('.drink-btn').forEach(btn => {
+            const key = btn.dataset.drink;
+            const span = btn.querySelector('span:nth-child(2)');
+            if (span && drinkMap[key]) span.textContent = drinkMap[key][lang];
+        });
+
+        // Update language toggle label if present
+        const langToggleBtn = document.getElementById('lang-toggle');
+        if (langToggleBtn) langToggleBtn.textContent = lang.toUpperCase();
+
+        // Update common buttons and placeholders
+        const confirmLocation = document.getElementById('confirm-location-btn');
+        if (confirmLocation) confirmLocation.innerHTML = translations[lang].continue || confirmLocation.innerHTML;
+        const confirmDatetime = document.getElementById('confirm-datetime');
+        if (confirmDatetime) confirmDatetime.innerHTML = translations[lang].confirm || confirmDatetime.innerHTML;
+        const foodNext = document.getElementById('food-next-btn');
+        if (foodNext) foodNext.innerHTML = translations[lang].pick_food || foodNext.innerHTML;
+        const confirmFood = document.getElementById('confirm-food-btn');
+        if (confirmFood) confirmFood.innerHTML = translations[lang].confirm || confirmFood.innerHTML;
+        const confirmDrink = document.getElementById('confirm-drink-btn');
+        if (confirmDrink) confirmDrink.innerHTML = translations[lang].confirm || confirmDrink.innerHTML;
+        const completionNext = document.getElementById('completion-next-btn');
+        if (completionNext) completionNext.innerHTML = translations[lang].finish_btn || completionNext.innerHTML;
+
+        // Update selection status areas (use translations when empty)
+        const foodStatus = document.getElementById('food-selection-status');
+        if (foodStatus) {
+            if (selectedFoods && selectedFoods.length > 0) {
+                const tpl = translations[lang].selected_count || '{n} selected';
+                foodStatus.innerHTML = `<p>${tpl.replace('{n}', selectedFoods.length)}</p>`;
+            } else {
+                foodStatus.innerHTML = `<p>${translations[lang].select_food_status || 'Select your food preferences'}</p>`;
+            }
+        }
+        const drinkStatus = document.getElementById('drink-selection-status');
+        if (drinkStatus) {
+            if (selectedDrinks && selectedDrinks.length > 0) {
+                const tpl = translations[lang].selected_count || '{n} selected';
+                drinkStatus.innerHTML = `<p>${tpl.replace('{n}', selectedDrinks.length)}</p>`;
+            } else {
+                drinkStatus.innerHTML = `<p>${translations[lang].select_drink_status || 'Select your drink preferences'}</p>`;
+            }
+        }
+
+        // Final/transition messages and custom labels
+        const selectedFoodMsg = document.querySelector('#selected-food-message .message');
+        if (selectedFoodMsg) selectedFoodMsg.textContent = translations[lang].food_yummy_message || selectedFoodMsg.textContent;
+
+    const selectedLocMsg = document.querySelector('#selected-location-message .message');
+    if (selectedLocMsg) selectedLocMsg.textContent = translations[lang].selected_location_msg || selectedLocMsg.textContent;
+
+    const selectedDtMsg = document.querySelector('#selected-datetime-message .message');
+    if (selectedDtMsg) selectedDtMsg.textContent = translations[lang].selected_datetime_msg || selectedDtMsg.textContent;
+
+        const finalMessageP = document.querySelector('#final-message .message');
+        if (finalMessageP) finalMessageP.textContent = translations[lang].food_final_message || finalMessageP.textContent;
+
+        const drinksNextBtn = document.getElementById('drinks-next-btn');
+        if (drinksNextBtn) drinksNextBtn.innerHTML = translations[lang].drinks_button_text || drinksNextBtn.innerHTML;
+
+        const selectedDrinkMsg = document.querySelector('#selected-drink-message .message');
+        if (selectedDrinkMsg) selectedDrinkMsg.textContent = translations[lang].drink_sounds_message || selectedDrinkMsg.textContent;
+        
+        // Success card messages
+        const successPromiseMsg = document.querySelector('#success-card .message');
+        if (successPromiseMsg) successPromiseMsg.textContent = translations[lang].success_promise_msg || successPromiseMsg.textContent;
+        
+        // Completion card messages
+        const completionMsgs = document.querySelectorAll('#completion-card .message');
+        if (completionMsgs[0]) completionMsgs[0].textContent = translations[lang].completion_msg_1 || completionMsgs[0].textContent;
+        if (completionMsgs[1]) completionMsgs[1].textContent = translations[lang].completion_msg_2 || completionMsgs[1].textContent;
+
+        // Custom 'Something else' labels for food/drink
+        document.querySelectorAll('.location-btn').forEach(btn => {
+            if (btn.dataset.food === 'custom' || btn.dataset.drink === 'custom') {
+                const span = btn.querySelector('span:nth-child(2)');
+                if (span) span.textContent = translations[lang].custom_something_else || span.textContent;
+            }
+        });
+    }
+
+    // Initialize language from localStorage or browser preference
+    const savedLang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('vi') ? 'vi' : 'en');
+    // Apply after a tiny delay to ensure DOM is ready
+    setTimeout(() => applyLanguage(savedLang), 10);
+
+    // Wire up lang toggle button (exists in DOM near top)
+    const langToggleBtnInit = document.getElementById('lang-toggle');
+    if (langToggleBtnInit) {
+        langToggleBtnInit.addEventListener('click', function() {
+            const current = (localStorage.getItem('lang') || document.documentElement.lang || 'en');
+            const next = current === 'en' ? 'vi' : 'en';
+            applyLanguage(next);
+        });
+    }
+
     // Tracking selections
     let selectedLocations = [];
     let selectedFoods = [];
@@ -257,30 +570,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Make the "No" button always escape the card immediately
     let noBtnClickCount = 0;
-    const noBtnResponses = [
-        "Really?",
-        "Are you sure?",
-        "Think again!",
-        "Last chance...",
-        "Pretty, please?",
-        "I guess you are getting the wrong button",
-        "You're breaking my heart!",
-        "Come on...",
-        "Don't be shy!",
-        "That's not nice!",
-        "You mean yes?",
-        "Try again?",
-        "I'm still waiting...",
-        "Please reconsider!",
-        "You missed the yes button!",
-        "Maybe you misclicked?",
-        "One more chance?",
-        "How about now?",
-        "Changed your mind yet?",
-        "Cutie, I know you would say yes!",
-        "Say yes already!"
-    ];
-
+    // No button responses will use translations
+    
     // Make the No button run away immediately when hovered
     noBtn.addEventListener('mouseover', function() {
         // Always move the button away from the card
@@ -305,7 +596,10 @@ document.addEventListener('DOMContentLoaded', function() {
         noBtn.style.left = randomX + 'px';
         noBtn.style.top = randomY + 'px';
         
-        // Change text but don't reduce font size
+        // Change text but don't reduce font size - use translated responses
+        const currentLang = document.documentElement.lang || localStorage.getItem('lang') || 'en';
+        const noBtnResponses = translations[currentLang].no_btn_responses || translations['en'].no_btn_responses;
+        
         if (noBtnClickCount < noBtnResponses.length) {
             noBtn.innerHTML = `<b>${noBtnResponses[noBtnClickCount]}</b>`;
             noBtnClickCount++;
@@ -751,6 +1045,9 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             newRow.style.opacity = '1';
         }, 10);
+        // Re-apply language to update placeholders and any newly added elements
+        const curLang = document.documentElement.lang || localStorage.getItem('lang') || 'en';
+        applyLanguage(curLang);
     });
     
     // Confirm datetime selection
@@ -1594,12 +1891,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!statusContainer) return;
         
         // Update status text
+        const curLang = document.documentElement.lang || localStorage.getItem('lang') || 'en';
         if (selectedFoods.length === 0) {
             statusContainer.classList.remove('active');
-            statusContainer.innerHTML = '<p>Select your food preferences</p>';
+            statusContainer.innerHTML = `<p>${translations[curLang].select_food_status || 'Select your food preferences'}</p>`;
         } else {
             statusContainer.classList.add('active');
-            statusContainer.innerHTML = `<p>${selectedFoods.length} option${selectedFoods.length > 1 ? 's' : ''} selected</p>`;
+            const tpl = translations[curLang].selected_count || '{n} selected';
+            statusContainer.innerHTML = `<p>${tpl.replace('{n}', selectedFoods.length)}</p>`;
         }
     }
 
@@ -1613,12 +1912,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!statusContainer) return;
         
         // Update status text
+        const curLang2 = document.documentElement.lang || localStorage.getItem('lang') || 'en';
         if (selectedDrinks.length === 0) {
             statusContainer.classList.remove('active');
-            statusContainer.innerHTML = '<p>Select your drink preferences</p>';
+            statusContainer.innerHTML = `<p>${translations[curLang2].select_drink_status || 'Select your drink preferences'}</p>`;
         } else {
             statusContainer.classList.add('active');
-            statusContainer.innerHTML = `<p>${selectedDrinks.length} option${selectedDrinks.length > 1 ? 's' : ''} selected</p>`;
+            const tpl2 = translations[curLang2].selected_count || '{n} selected';
+            statusContainer.innerHTML = `<p>${tpl2.replace('{n}', selectedDrinks.length)}</p>`;
         }
     }
 

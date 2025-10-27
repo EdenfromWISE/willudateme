@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Quicksand', sans-serif;
+    /* Use Noto Sans first for Vietnamese support, keep Quicksand as fallback */
+    font-family: 'Noto Sans', 'Quicksand', sans-serif;
 }
 
 body {
@@ -55,6 +56,30 @@ body.dark-mode {
     right: 20px;
     z-index: 2000;
     cursor: pointer;
+}
+
+/* Language toggle button (simple) */
+.lang-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2000;
+}
+
+.lang-toggle button {
+    background: linear-gradient(45deg, #fff5f8, #ffecf0);
+    border: 2px solid rgba(255,182,193,0.5);
+    color: #ff4d88;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(255,107,149,0.12);
+}
+
+.lang-toggle button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255,107,149,0.15);
 }
 
 .theme-toggle label {
